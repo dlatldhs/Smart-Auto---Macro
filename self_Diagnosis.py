@@ -13,17 +13,19 @@ list_City =[
     '서울특별시','부산광역시','대구광역시','인천광역시','광주광역시','대전광역시','울산광역시','세종특별자치시',
     '경기도','강원도','충청북도','충청남도','전라북도','전라남도','경상북도','경상남도','제주특별자치도']
 School_level_list = ['유치원','초등학교','중학교','고등학교','특수학교 등']
-
+Numberlist=['1','2','3','4','5','6','7','8','9','0']
+#생년월일
+DateofBirth="050915"
 #니 이름
-name=input("Your name: ")
+name="임시온"#input("Your name: ")
 #자가진단 비밀번호
 pwd=input("Your password: ")
 #학교 레벨
-level = input("Your school level")
+level = "고등학교"#input("Your school level")
 #학교 이름
-school=input("Your School name: ")
+school="부산소프트웨어마이스터고등학교"#input("Your School name: ")
 #거주하고 있는 도시
-YCity=input("The name of the city you live in?:")
+YCity="부산광역시"#input("The name of the city you live in?:")
 
 driver = webdriver.Chrome('C:\\Users\\SW2126\\Desktop\\Python\\projects\\Macro_programs\\Auto_git\\chromedriver_win32\\chromedriver.exe')
 url = 'https://google.com/'
@@ -39,10 +41,7 @@ def start():
     #driver send_keys
     google_search_box.send_keys('자가진단')
     google_search_box.send_keys(Keys.ENTER)
-    time.sleep(1)
-    driver.find_element_by_css_selector('.LC20lb.DKV0Md').click()
-    time.sleep(1)
-    driver.find_element_by_css_selector('#btnConfirm2').click()
+    
 #=============================================================================
 
 #=========시/도 선택하게 해주는 함수 =========================================
@@ -57,12 +56,42 @@ def School_level():
     school_level_index = str(School_level_list.index(level)+2)
     driver.find_element_by_xpath(
     '//*[@id="crseScCode"]/option['+school_level_index+']'
-    )
+    ).click()
 #=============================================================================
 def School_name():
-    driver.find_element_by_css_selector('.searchArea').send_keys(school).send_keys(Keys.ENTER)
-    driver.find_element_by_xpath('//*[@id="softBoardListLayer"]/div[2]/div[1]/ul/li/a/p/a')
+    seracArea = driver.find_element_by_css_selector('.searchArea')
+    seracArea.send_keys(school)
+    seracArea.send_keys(Keys.TAB,Keys.ENTER)
+    driver.find_element_by_xpath(
+        '/html/body/div/div/div/div/div/div[2]/div[1]/table/tbody/tr[3]/td[2]/button'
+    ).send_keys(Keys.TAB, Keys.ENTER)
     driver.find_element_by_css_selector('.layerFullBtn').click()
+#=============================================================================
+def named():
+    namelink=driver.find_element_by_css_selector('#user_name_input')
+    namelink.click()
+    namelink.send_keys(name)
+#============================================================================
+def Date():
+    Datelink=driver.find_element_by_css_selector('#birthday_input')
+    Datelink.click()
+    Datelink.send_keys(DateofBirth)
+    driver.find_element_by_css_selector('#btnConfirm').click()
+#============================================================================
+def schools():
+    Login_City()
+    School_level()
+    School_name()
+#============================================================================
+def password_click():
+    driver.find_element_by_css_selector('#password').click()
+    for i in pwd:
+        p_list = pyautogui.locateCenterOnScreen(
+            "C:\\Users\\SW2126\\Desktop\\Python\\projects\\Macro_programs\\Smart_Auto_selfDiagnosis_Macro\\NumberPictures\\"+i+".png"
+            )
+        p_llist = list(p_list)
+    p_center = pyautogui.center(p_llist[0])
+    pyautogui.click(p_center)
 
 #자가진단 사이트 들어가서 로그인 까지=========================================
 def login_slef_Diagnosis():
@@ -73,14 +102,13 @@ def login_slef_Diagnosis():
     time.sleep(1)
     driver.find_element_by_css_selector('#schul_name_input').click()
     time.sleep(1)
-    Login_City()
+    schools()
     time.sleep(1)
-    School_level()
+    named()
     time.sleep(1)
-    School_name()
+    Date()
     time.sleep(1)
-
-
+    password_click()
 
 start()
 login_slef_Diagnosis()
