@@ -86,11 +86,10 @@ def schools():
 def password_click():
     driver.find_element_by_css_selector('#password').click()
     for p in pwd:
-        time.sleep(0.4)
+        time.sleep(0.2)
         img = pyautogui.locateCenterOnScreen('./NumberPictures/'+str(p)+'.PNG')
         pyautogui.click('./NumberPictures/'+str(p)+'.PNG')
-    time.sleep(3)
-    driver.find_element_by_css_selector('#btnConfirm').click()
+    return
 #=============================================================================
 def last_click():
     time.sleep(2)
@@ -111,12 +110,12 @@ def login_slef_Diagnosis():
     driver.find_element_by_css_selector('#schul_name_input').click()
     time.sleep(1)
     schools()
-    time.sleep(1)
+    time.sleep(0.4)
     named()
-    time.sleep(1)
     Date()
-    time.sleep(1)
+    t.sleep(1)
     password_click()
+    driver.find_element_by_css_selector('#btnConfirm').click()
     last_click()
     print("finish!")
 
