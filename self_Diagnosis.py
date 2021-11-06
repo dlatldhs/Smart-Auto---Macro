@@ -85,14 +85,22 @@ def schools():
 #============================================================================
 def password_click():
     driver.find_element_by_css_selector('#password').click()
-    for i in pwd:
-        p_list = pyautogui.locateCenterOnScreen(
-            "C:\\Users\\SW2126\\Desktop\\Python\\projects\\Macro_programs\\Smart_Auto_selfDiagnosis_Macro\\NumberPictures\\"+i+".png"
-            )
-        p_llist = list(p_list)
-    p_center = pyautogui.center(p_llist[0])
-    pyautogui.click(p_center)
-
+    for p in pwd:
+        time.sleep(0.4)
+        img = pyautogui.locateCenterOnScreen('./NumberPictures/'+str(p)+'.PNG')
+        pyautogui.click('./NumberPictures/'+str(p)+'.PNG')
+    time.sleep(3)
+    driver.find_element_by_css_selector('#btnConfirm').click()
+#=============================================================================
+def last_click():
+    time.sleep(2)
+    driver.find_element_by_css_selector(
+        '.service01').send_keys(Keys.TAB * 3, Keys.ENTER)
+    time.sleep(2)
+    driver.find_element_by_id("survey_q1a1").click()
+    driver.find_element_by_id("survey_q2a1").click()
+    driver.find_element_by_id("survey_q3a1").click()
+    driver.find_element_by_id("btnConfirm").click()
 #자가진단 사이트 들어가서 로그인 까지=========================================
 def login_slef_Diagnosis():
     #자가진단 사이트 들어가기
@@ -109,6 +117,8 @@ def login_slef_Diagnosis():
     Date()
     time.sleep(1)
     password_click()
+    last_click()
+    print("finish!")
 
 start()
 login_slef_Diagnosis()
