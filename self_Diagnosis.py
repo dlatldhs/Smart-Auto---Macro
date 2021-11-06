@@ -113,7 +113,7 @@ def login_slef_Diagnosis():
     time.sleep(0.4)
     named()
     Date()
-    t.sleep(1)
+    t.sleep(2)
     password_click()
     driver.find_element_by_css_selector('#btnConfirm').click()
     last_click()
