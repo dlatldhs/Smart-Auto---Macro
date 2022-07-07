@@ -9,6 +9,14 @@
 ## 사용 프로그램
 chromedriver.exe( 자신이 사용중인 chrome 버전에 맞게 설치해야됨 )<br>[설치하는 곳](https://chromedriver.chromium.org/downloads) 
 
+## 사용한 라이브러리
+```
+selenium
+time
+pyautogui
+lib2to3.pgen2 import driver
+webdirver_manager
+```
 ## 기술 스택
 ![image](https://user-images.githubusercontent.com/80656700/177704358-f1f642e7-3af4-4361-a8c6-0e9775c88e29.png)
 
